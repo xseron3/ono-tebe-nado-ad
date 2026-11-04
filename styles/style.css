@@ -1,1 +1,292 @@
-/* место для вашего кода */
+/* ===== ШАГ 3: Глобальная стилизация ===== */
+
+/* Обложка: фон + точная высота из Figma */
+.cover {
+  position: relative;               /* держит оверлей ВНУТРИ обложки! */
+  min-height: 757px;
+  padding: 165px 50px 48px;
+  background-image: url('../images/cover.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Секция лотов: верхний отступ точный (1230 − 1050 = 180) */
+.lots {
+  padding: 180px 24px 0;        /* низ пока ориентировочный */
+}
+
+/* Секция «Об аукционе»: значения ориентировочные, жду top/height из Figma */
+.about {
+  display: grid;
+  grid-template-columns: 334px 1fr;   /* левая колонка = ширина карточки, правая — остаток */
+  gap: 25px;
+  margin: 120px 24px 0;               /* отступ сверху от лотов */
+  padding-top: 35px;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: start;
+  margin-top: 180px;
+  padding: 0 50px 88px;
+  /* background-color убираем совсем — в макете подвал белый */
+}
+
+
+/* ===== ШАГ 4: Шапка ===== */
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr min-content 1fr;  /* меню | логотип | адрес */
+  align-items: center;                          /* центрирование по вертикали */
+  min-height: 293px;                /* точная высота шапки (cover top = 293) */
+  padding: 0 24px;
+}
+
+/* Меню: в ряд + кружки-маркеры */
+.header__links-list {
+  display: flex;
+  gap: 24px;                        /* расстояние между пунктами (ориентировочно) */
+  list-style: circle;               /* кружочки из макета */
+}
+
+.header__links-list-item_no-bullit {
+  list-style: none;                 /* первый пункт — без кружка */
+}
+
+.header__link_active {
+  text-decoration: none;            /* активная ссылка без подчёркивания */
+}
+
+/* Логотип: блочная ссылка фиксированной ширины */
+.header__logo {
+  display: block;
+  width: 138px;                     /* ширина логотипа (ориентировочно) */
+}
+
+/* Адрес: сброс курсива + выравнивание */
+.address {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 240px;         /* точная ширина из ключика — переносы совпадут с макетом */
+  font-size: 18px;
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.header__address {
+  justify-self: end;        /* здесь остаётся только выравнивание в гриде шапки */
+}
+
+/* Оверлей: полупрозрачный слой поверх фона */
+.overlay {
+  position: absolute;
+  inset: 0;                          /* растягивается на все 4 стороны родителя */
+  background: rgb(0 0 0 / 0.5);      /* полупрозрачный чёрный */
+  z-index: 1;
+}
+
+/* Контент должен быть ВЫШЕ оверлея */
+.cover__title,
+.cover__description {
+  position: relative;
+  z-index: 2;
+}
+
+/* Заголовок: три строки с разным выравниванием */
+.cover__title {
+  color: #ffffff;
+  font-size: 76px;                  /* ориентировочно */
+  font-weight: bold;
+  text-transform: uppercase;        /* в верхний регистр через CSS */
+  letter-spacing: 0.08em;           /* ориентировочно */
+  line-height: 1.2;
+}
+
+.aligned-text {
+  display: block;                   /* каждая строка — блок */
+}
+
+.aligned-text_left { text-align: left; }
+.aligned-text_center { text-align: center; }
+.aligned-text_right { text-align: right; }
+
+
+/* Обнуление межбуквенного у последней буквы */
+.no-letter-spacing {
+  letter-spacing: 0;
+}
+
+/* Подзаголовок и кнопка на одной линии */
+.cover__description {
+  display: flex;
+  justify-content: space-between;   /* текст слева, кнопка справа */
+  align-items: center;
+}
+
+.cover__description-text {
+  color: #ffffff;
+  font-size: 18px;                  /* ориентировочно */
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  word-spacing: 18px;               /* те самые широкие промежутки между словами */
+}
+
+/* Кнопка «Сделать ставку» */
+.bet-button {
+  background: transparent;          /* прозрачный фон */
+  border: 1px solid #ffffff;        /* тонкая белая рамка */
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 14px;
+  padding: 12px 24px;               /* ориентировочно */
+  cursor: pointer;
+}
+
+/* ===== ШАГ 6: Лоты ===== */
+
+/* Заголовок секции */
+.lots__heading {
+  margin-bottom: 27px;
+  padding-left: 40px;         /* в макете «ЛОТЫ» сдвинуты относительно карточек */
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Список карточек: флекс + перенос */
+.lots__card-list {
+  display: flex;
+  flex-wrap: wrap;            /* четвёртая карточка уйдёт на новую строку */
+  gap: 25px;                  /* точный зазор из макета */
+  list-style: none;           /* сброс маркеров списка */
+}
+
+.lots__card-list-item {
+  width: 334px;               /* точная ширина карточки */
+  min-height: 596px;          /* точная минимальная высота */
+}
+
+/* Ссылка-обёртка: без подчёркивания, во всю высоту карточки */
+.card-link {
+  display: block;
+  height: 100%;
+  text-decoration: none;
+}
+
+/* Карточка */
+.card {
+  position: relative;         /* ВОТ ТУТ оверлеи карточек вернутся домой! */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;   /* заголовок вверх, текст вниз */
+  min-height: 596px;
+  height: 100%;
+  padding: 48px 40px;
+  color: #ffffff;
+  background-color: #333;     /* подложка, пока картинка грузится */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Фоны каждой карточки */
+.card_type_film { background-image: url('../images/card-lot-01.jpg'); }
+.card_type_book { background-image: url('../images/card-lot-02.jpg'); }
+.card_type_picture { background-image: url('../images/card-lot-03.jpg'); }
+
+/* Контент карточки — ВЫШЕ оверлея */
+.card__title {
+  position: relative;
+  z-index: 2;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: underline;   /* в макете заголовки карточек подчёркнуты */
+  text-transform: uppercase;
+}
+
+.card__text {
+  position: relative;
+  z-index: 2;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Ссылка «посмотреть больше» */
+.lots__look-more-link {
+  display: inline-block;
+  margin-top: 30px;
+  margin-left: 40px;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Чёрный круг с логотипом */
+.about__logo {
+  display: flex;                      /* центрируем логотип по обеим осям */
+  justify-content: center;
+  align-items: center;
+  width: 240px;
+  height: 240px;
+  margin: 0 auto;                     /* сам круг — по центру левой колонки */
+  border-radius: 50%;                 /* круг! */
+  background-color: #000000;
+}
+
+.about__logo-image {
+  width: 148px;                       /* перебиваем глобальное img { width: 100% } */
+}
+
+/* Заголовок секции */
+.about__title {
+  margin: 100px 0;                    /* воздушные отступы сверху и снизу */
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+/* Текст: два абзаца с гибким зазором */
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;                          /* если добавится третий абзац — отступы перестроятся сами */
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+/* Меню по центру */
+.footer__menu {
+  text-align: center;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.footer__menu-list {
+  list-style: none;                     /* убираем кружки-маркеры */
+}
+
+.footer__menu-link_active {
+  text-decoration: none;                /* активная ссылка без подчёркивания */
+}
+
+/* Соцсети справа */
+.footer__social-list {
+  list-style: none;
+  display: flex;
+  gap: 48px;                            /* расстояние между иконками */
+  justify-self: end;                    /* прижимаем блок к правому краю колонки */
+}
+
+.footer__social-link {
+  display: block;
+  width: 48px;                          /* перебиваем глобальное img { width: 100% } */
+}
